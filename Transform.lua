@@ -64,22 +64,21 @@ end
 -- @description: Sets the local rotation of a transform
 function Transform:SetLocalRotation(Angle)
 	
-	while Angle < -180 do
+	while Angle < -math.pi do
 		
-		Angle = Angle + 360
+		Angle = Angle + 2*math.pi
 		
 	end
 	
-	while Angle > 180 do
+	while Angle > math.pi do
 		
-		Angle = Angle - 360
+		Angle = Angle - 2*math.pi
 		
 	end
 	
 	if Angle ~= self.Rotation then
 		
 		self.Rotation = Angle
-		self.Radians = math.rad(Angle)
 		
 		if Angle == 0 then
 			
@@ -99,8 +98,8 @@ function Transform:SetLocalRotation(Angle)
 			
 		else
 		
-			local Cosine = math.cos(self.Radians)
-			local Sine = math.sin(self.Radians)
+			local Cosine = math.cos(self.Rotation)
+			local Sine = math.sin(self.Rotation)
 			
 			-- The transformation matrix
 			self.Matrix = {
@@ -160,15 +159,15 @@ function Transform:GetRotation()
 		
 		local Rotation = self.Rotation + self.Parent:GetRotation()
 		
-		while Rotation < -180 do
+		while Rotation < -math.pi do
 			
-			Rotation = Rotation + 360
+			Rotation = Rotation + 2*math.pi
 			
 		end
 		
-		while Rotation > 180 do
+		while Rotation > math.pi do
 			
-			Rotation = Rotation - 360
+			Rotation = Rotation - 2*math.pi
 			
 		end
 		
@@ -307,15 +306,15 @@ function Transform:ToWorldAngle(Angle)
 	
 	local Rotation = Angle + self:GetRotation()
 	
-	while Rotation < -180 do
+	while Rotation < -math.pi do
 		
-		Rotation = Rotation + 360
+		Rotation = Rotation + 2*math.pi
 		
 	end
 	
-	while Rotation > 180 do
+	while Rotation > math.pi do
 		
-		Rotation = Rotation - 360
+		Rotation = Rotation - 2*math.pi
 		
 	end
 	
@@ -328,15 +327,15 @@ function Transform:ToLocalAngle(Angle)
 	
 	local Rotation = Angle - self:GetRotation()
 	
-	while Rotation < -180 do
+	while Rotation < -math.pi do
 		
-		Rotation = Rotation + 360
+		Rotation = Rotation + 2*math.pi
 		
 	end
 	
-	while Rotation > 180 do
+	while Rotation > math.pi do
 		
-		Rotation = Rotation - 360
+		Rotation = Rotation - 2*math.pi
 		
 	end
 	
